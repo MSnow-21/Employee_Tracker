@@ -9,9 +9,9 @@ INSERT INTO role (title)
 VALUES ("engineer");
 
 INSERT INTO role (salary)
-VALUES ("55000");
+VALUES (55000);
 
-INSERT INTO role (deparment_id)
+INSERT INTO role (department_id)
 VALUES (40)
 
 /*Insert values into employee*/

@@ -65,29 +65,30 @@ const addCompanyDetails = () => {
 
 const addDepartments = () => {
     inquirer
-    .prompt({
-        type: 'input',
-        name: 'departmentname',
-        message: 'what is the name of the department?',
-    })
-    .then((answer) => {
-        console.log("Inserting a new department....\n");
-        const query = connection.query(
-            'INSERT INTO department SET name=?',
-            [answer.departmentname],
-            console.table([answer.departmentname]),
-            (err,res) => {
-                if (err) throw err;
-                console.log(`${res.affectedRows} department updated!\n`);
-                connection.end();
-            }
-        );
-    });
+    .prompt([
+        {
+            type: 'input',
+            name: 'departmentname',
+            message: 'what is the name of the department?',
+        }])
+        .then((answer) => {
+            console.log("Inserting a new department....\n");
+            const query = connection.query(
+                'INSERT INTO department SET name=?',
+                [answer.departmentname],
+                console.table([answer.departmentname]),
+                (err,res) => {
+                    if (err) throw err;
+                    console.log(`${res.affectedRows} department updated!\n`);
+                    connection.end();
+                }
+            );
+        });
 }
 
 const addRoles = () => {
     inquirer
-    .prompt(
+    .prompt([
         {
             type: 'input',
             name: 'title',
@@ -100,7 +101,27 @@ const addRoles = () => {
         },
         {
             type: 'input',
-            name: 'department',
+            name: 'department_id',
             message: 'What is the department id for this employee role?',
-        });
+        }])
+        .then((answer) => {
+            console.log('Inserting in employee roles into database.....\n');
+            const query = connection.query(
+                'INSERT INTO role SET ?',
+                [
+                    {
+                        title: answer.title,
+                        salary: answer.salary,
+                        department_id: answer.department_id,
+                    }
+                ],
+                console.table([answer.title,answer.salary,answer.department_id]),
+                (err,res) => {
+                    if (err) throw err;
+                    console.log(`${res.affectedRows} department updated!\n`);
+                    connection.end();
+                }
+
+            )
+        })
 };
