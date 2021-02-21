@@ -1,6 +1,18 @@
 const mysql = require('mysql');
 const inquirer = require('inquirer');
-const table = require('console.table')
+const table = require('console.table');
+
+//testing console.table entries
+
+console.table([
+    {
+      name: 'foo',
+      age: 10
+    }, {
+      name: 'bar',
+      age: 20
+    }
+  ]);
 
 const connection = mysql.createConnection({
     host: 'localhost',
@@ -9,7 +21,7 @@ const connection = mysql.createConnection({
 
     user: 'root',
 
-    password: '',
+    password: process.env.DB_PASS,
     database: 'employee_trackerDB',
 });
 
@@ -22,7 +34,7 @@ const addCompanyDetails = () => {
     inquirer
     .prompt({
         name: 'action',
-        type: 'rawlist',
+        type: 'list',
         message: 'What would you like to do?',
         choices: [
             'Add a department?',
@@ -51,3 +63,28 @@ const addCompanyDetails = () => {
     });
 };
 
+const addDepartments = () => {
+    inquirer
+    .prompt({
+        type: 'input',
+        name: 'departmentname',
+        message: 'what is the name of the department?',
+
+    })
+    .then((answer) => {
+        console.log("Inserting a new department....\n");
+        const query = connection.query(
+            'INSERT INTO department SET name=?',
+            [answer.departmentname],
+            console.table([answer.departmentname]),
+            (err,res) => {
+                if (err) throw err;
+                console.log(`${res.affectedRows} department updated!\n`);
+                connection.end();
+            }
+        );
+
+    });
+    
+
+}
