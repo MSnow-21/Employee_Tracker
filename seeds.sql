@@ -6,10 +6,10 @@ VALUES ("engineering");
 
 /* Insert values into role */
 INSERT INTO role (title)
-VALUES ("engineer")
+VALUES ("engineer");
 
 INSERT INTO role (salary)
-VALUES ("55000")
+VALUES ("55000");
 
 INSERT INTO role (deparment_id)
 VALUES (40)
@@ -17,7 +17,7 @@ VALUES (40)
 /*Insert values into employee*/
 
 INSERT INTO employee (first_name)
-VALUES ("Mike")
+VALUES ("Mike");
 
 INSERT INTO employee (last_name)
 VALUES ("Smith");

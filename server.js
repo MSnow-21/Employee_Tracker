@@ -69,7 +69,6 @@ const addDepartments = () => {
         type: 'input',
         name: 'departmentname',
         message: 'what is the name of the department?',
-
     })
     .then((answer) => {
         console.log("Inserting a new department....\n");
@@ -83,8 +82,25 @@ const addDepartments = () => {
                 connection.end();
             }
         );
-
     });
-    
-
 }
+
+const addRoles = () => {
+    inquirer
+    .prompt(
+        {
+            type: 'input',
+            name: 'title',
+            message: 'What employee role would you like to add to your company?',
+        },
+        {
+            type: 'input',
+            name: 'salary',
+            message: 'What is the salary for the employee title entered?',
+        },
+        {
+            type: 'input',
+            name: 'department',
+            message: 'What is the department id for this employee role?',
+        });
+};
