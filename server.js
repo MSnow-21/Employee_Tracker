@@ -42,6 +42,7 @@ const addCompanyDetails = () => {
             'Add employee?',
             'View employees?',
             'View roles?',
+            'View departments?',
             'End',
         ],
     })
@@ -65,6 +66,10 @@ const addCompanyDetails = () => {
 
             case 'View roles?':
                 viewRoles();
+                break;
+
+            case 'View departments?':
+                viewDepartments();
                 break;
 
             case 'End':
@@ -195,6 +200,15 @@ const viewRoles = () => {
         connection.end();
     });
 };
+
+const viewDepartments = () => {
+    connection.query('Select * From department', (err,res)=>{
+        if (err) throw err;
+        console.table(res);
+        connection.end();
+    })
+}
+
 
 const endConnection = () => {
     connection.end();
