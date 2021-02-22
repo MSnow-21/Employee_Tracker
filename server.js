@@ -4,15 +4,15 @@ const table = require('console.table');
 
 //testing console.table entries
 
-console.table([
-    {
-      name: 'foo',
-      age: 10
-    }, {
-      name: 'bar',
-      age: 20
-    }
-  ]);
+// console.table([
+//     {
+//       name: 'foo',
+//       age: 10
+//     }, {
+//       name: 'bar',
+//       age: 20
+//     }
+//   ]);
 
 const connection = mysql.createConnection({
     host: 'localhost',
@@ -38,8 +38,9 @@ const addCompanyDetails = () => {
         message: 'What would you like to do?',
         choices: [
             'Add a department?',
-            'Add employee roles?',
-            'Add employees?',
+            'Update employee role?',
+            'Add employee?',
+            'View employees?',
         ],
     })
     .then((answer) => {
@@ -48,12 +49,16 @@ const addCompanyDetails = () => {
                 addDepartments();
                 break;
                 
-            case 'Add employee roles?':
+            case 'Update employee role?':
                 addRoles();
                 break;
             
-            case 'Add employees?':
+            case 'Add employee?':
                 addEmployees();
+                break;
+
+            case 'View employees?':
+                viewEmployees();
                 break;
 
             default:
@@ -164,4 +169,12 @@ const addEmployees = () => {
             }
         )
     })
+};
+
+const viewEmployees = () => {
+    connection.query('SELECT * From employee', (err,res)=>{
+        if (err) throw err;
+        console.table(res);
+        connection.end();
+    });
 };
