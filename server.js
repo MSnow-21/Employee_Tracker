@@ -41,6 +41,8 @@ const addCompanyDetails = () => {
             'Update employee role?',
             'Add employee?',
             'View employees?',
+            'View roles?',
+            'End',
         ],
     })
     .then((answer) => {
@@ -59,6 +61,14 @@ const addCompanyDetails = () => {
 
             case 'View employees?':
                 viewEmployees();
+                break;
+
+            case 'View roles?':
+                viewRoles();
+                break;
+
+            case 'End':
+                endConnection();
                 break;
 
             default:
@@ -84,7 +94,7 @@ const addDepartments = () => {
                 console.table([answer.departmentname]),
                 (err,res) => {
                     if (err) throw err;
-                    console.log(`${res.affectedRows} department updated!\n`);
+                    console.log("Department updated");
                     connection.end();
                 }
             );
@@ -123,8 +133,7 @@ const addRoles = () => {
                 console.table([answer.title,answer.salary,answer.department_id]),
                 (err,res) => {
                     if (err) throw err;
-                    console.log(`${res.affectedRows} department updated!\n`);
-                    connection.end();
+                    addCompanyDetails(); // or connection.end();
                 }
 
             )
@@ -165,7 +174,7 @@ const addEmployees = () => {
             (err,res) => {
                 if (err) throw err;
                 console.log(`${res.affectedRows} department updated!\n`);
-                connection.end();
+                addCompanyDetails(); // or connection.end();
             }
         )
     })
@@ -178,3 +187,15 @@ const viewEmployees = () => {
         connection.end();
     });
 };
+
+const viewRoles = () => {
+    connection.query('Select * From role', (err,res)=>{
+        if(err) throw err;
+        console.table(res);
+        connection.end();
+    });
+};
+
+const endConnection = () => {
+    connection.end();
+}
