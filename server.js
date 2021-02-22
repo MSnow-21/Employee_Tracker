@@ -125,3 +125,24 @@ const addRoles = () => {
             )
         })
 };
+
+const addEmployees = () => {
+    inquirer
+    .prompt([
+        {
+            type: 'input',
+            name: 'first_name',
+            message: 'What is the first name of the employee?',
+        },
+        {
+            type: 'input',
+            name: 'last_name',
+            message: 'What is the last name of the employee?',
+        },
+        {
+            type: 'input',
+            name: 'manager_id',
+            message: 'What is the employees manager id?'
+        },
+    ])
+}
