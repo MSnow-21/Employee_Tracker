@@ -142,7 +142,26 @@ const addEmployees = () => {
         {
             type: 'input',
             name: 'manager_id',
-            message: 'What is the employees manager id?'
+            message: 'What is the employees manager id?',
         },
     ])
-}
+    .then((answer) => {
+        console.log('Inserting employee names and manager ids into database....\n');
+        const query = connection.query(
+            'INSERT INTO employee SET ?',
+            [
+                {
+                    first_name: answer.first_name,
+                    last_name: answer.last_name,
+                    manager_id: answer.manager_id,
+                }
+            ],
+            console.table([answer.first_name,answer.last_name,answer.manager_id]),
+            (err,res) => {
+                if (err) throw err;
+                console.log(`${res.affectedRows} department updated!\n`);
+                connection.end();
+            }
+        )
+    })
+};
