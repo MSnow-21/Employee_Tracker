@@ -38,11 +38,12 @@ const addCompanyDetails = () => {
         message: 'What would you like to do?',
         choices: [
             'Add a department?',
-            'Update employee role?',
+            'Add employee role?',
             'Add employee?',
             'View employees?',
             'View roles?',
             'View departments?',
+            'Update employee role',
             'End',
         ],
     })
@@ -52,7 +53,7 @@ const addCompanyDetails = () => {
                 addDepartments();
                 break;
                 
-            case 'Update employee role?':
+            case 'Add employee role?':
                 addRoles();
                 break;
             
@@ -71,6 +72,8 @@ const addCompanyDetails = () => {
             case 'View departments?':
                 viewDepartments();
                 break;
+            case 'Update employee role':
+                updateRole();
 
             case 'End':
                 endConnection();
@@ -184,6 +187,11 @@ const addEmployees = () => {
         )
     })
 };
+
+const updateRole = () => {
+    
+}
+
 
 const viewEmployees = () => {
     connection.query('SELECT * From employee', (err,res)=>{
