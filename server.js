@@ -99,11 +99,12 @@ const addDepartments = () => {
             const query = connection.query(
                 'INSERT INTO department SET name=?',
                 [answer.departmentname],
-                console.table([answer.departmentname]),
                 (err,res) => {
                     if (err) throw err;
                     console.log("Department updated");
-                    connection.end();
+                    console.table([answer.departmentname]);
+                    //connection.end();
+                    addCompanyDetails();
                 }
             );
         });
@@ -138,9 +139,9 @@ const addRoles = () => {
                         department_id: answer.department_id,
                     }
                 ],
-                console.table([answer.title,answer.salary,answer.department_id]),
                 (err,res) => {
                     if (err) throw err;
+                    console.table([answer.title,answer.salary,answer.department_id]);
                     addCompanyDetails(); // or connection.end();
                 }
 
@@ -178,10 +179,10 @@ const addEmployees = () => {
                     manager_id: answer.manager_id,
                 }
             ],
-            console.table([answer.first_name,answer.last_name,answer.manager_id]),
             (err,res) => {
                 if (err) throw err;
                 console.log(`${res.affectedRows} department updated!\n`);
+                console.table([answer.first_name,answer.last_name,answer.manager_id]);
                 addCompanyDetails(); // or connection.end();
             }
         )
@@ -189,8 +190,47 @@ const addEmployees = () => {
 };
 
 const updateRole = () => {
+    inquirer
+    .prompt([
+        {
+            type: 'input',
+            name: 'title',
+            message: 'What employee role would you like to update?',
+        },
+        {
+            type: 'input',
+            name: 'salary',
+            message: 'What is the salary for the employee role entered?',
+        },
+        {
+            type: 'input',
+            name: 'department_id',
+            message: 'What is the department id for this employee role?',
+        }
+    ])
+    .then((answer) => {
+        console.log('Updating role details.....\n');
+        const query = connection.query(
+            'UPDATE role SET title = ?, salary = ? WHERE deparmtment_id = ?',
+            // [
+            //     {
+            //         title: answer.title,
+            //         salary: answer.salary,
+            //         department_id: answer.department_id,
+            //     }
+            // ],
+            [answer.title,answer.salary,answer.department_id],
+            (err,res) => {
+                if (err) throw err;
+                console.log(res);
+                console.table([answer.title,answer.salary,answer.department_id]);
+                addCompanyDetails(); // or connection.end();
+            }
+
+        )
+    })
     
-}
+};
 
 
 const viewEmployees = () => {
