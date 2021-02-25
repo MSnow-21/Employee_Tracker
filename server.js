@@ -74,6 +74,7 @@ const addCompanyDetails = () => {
                 break;
             case 'Update employee role':
                 updateRole();
+                break;
 
             case 'End':
                 endConnection();
@@ -211,7 +212,7 @@ const updateRole = () => {
     .then((answer) => {
         console.log('Updating role details.....\n');
         const query = connection.query(
-            'UPDATE role SET title = ?, salary = ? WHERE deparmtment_id = ?',
+            'UPDATE role SET title = ?, salary = ? WHERE department_id = ?',
             // [
             //     {
             //         title: answer.title,
